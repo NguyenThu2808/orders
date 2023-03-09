@@ -1,0 +1,84 @@
+<% content_for :vendor_css do %>
+  <%= stylesheet_link_tag 'home/vendor', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :theme_css do %>
+  <%= stylesheet_link_tag 'home/theme', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :page_css do %>
+  <%= stylesheet_link_tag 'home/page', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :custom_css do %>
+  <%= stylesheet_link_tag 'home/custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper container-xxl p-0">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <!-- Basic Tables start -->
+      <div class="row" id="basic-table">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Table Basic</h4>
+            </div>
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Phân loại</th>
+                    <th>Món ăn</th>
+                    <th>Giá</th>
+                    <th>Hành động</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @dishes.each_with_index do |dish, index| %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td><%= dish.category.name %></td>
+                      <td><%= dish.name %></td>
+                      <td><%= dish.price %></td>
+                      <td>
+                        <%= link_to "Chỉnh sửa", edit_dish_path(dish) %> |
+                        <%= link_to "Xóa", dish_path(dish), method: :delete,
+                          data: { confirm: "Are you sure?" } %>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+
+            <p><%= will_paginate @dishes %></p>
+          </div>
+        </div>
+      </div>
+      <!-- Basic Tables end -->
+    </div>
+  </div>
+</div>
+
+<% content_for :vendor_js do %>
+  <%= javascript_include_tag 'home/vendor' %>
+<% end %>
+
+<% content_for :page_vendor_js do %>
+  <%= javascript_include_tag 'home/page_vendor' %>
+<% end %>
+
+<% content_for :theme_js do %>
+  <%= javascript_include_tag 'home/theme' %>
+<% end %>
+
+<% content_for :page_js do %>
+  <%= javascript_include_tag 'home/page' %>
+<% end %>

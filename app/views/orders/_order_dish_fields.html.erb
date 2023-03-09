@@ -1,0 +1,36 @@
+<div class="nested-fields">
+  <div class="row">
+    <div class="col-md-5 col-12">
+      <div class="form-group">
+        <%= f.label :dish_id, "Chọn món" %>
+        <%= f.collection_select :dish_id, @dishes, :id,
+          proc {|dish| dish.name}, {},
+          {class: "form-control select2"} %>
+      </div>
+    </div>
+    <div class="col-md-2 col-12">
+      <div class="form-group">
+        <%= f.label :quantity, "Số lượng" %>
+        <%= f.text_field :quantity, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-md-1 col-12">
+      <div class="form-group">
+        <label for="staticprice">Price</label>
+        <input type="text" readonly class="form-control-plaintext" id="staticprice" value="$32" />
+      </div>
+    </div>
+    <div class="col-md-2 col-12">
+      <div class="form-group">
+        <label for="" class="mt-3"></label>
+        <% unless f.object&.id == f.object.order.order_dishes.first&.id %>
+          <%= link_to_remove_association f,
+            class: "btn btn-outline-danger text-nowrap px-1" do %>
+            <!-- <i data-feather="x" class="mr-25"></i> -->
+            <span>Delete</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

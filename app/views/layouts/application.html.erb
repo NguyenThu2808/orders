@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Orders</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= render "layouts/head" %>
+    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield :vendor_css %>
+    <%= yield :theme_css %>
+    <%= yield :page_css %>
+    <%= yield :custom_css %>
+  </head>
+
+  <body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover" data-menu="horizontal-menu" data-col="">
+    <%= render "layouts/header" %>
+    <%= render "layouts/main_menu" %>
+    <%= yield %>
+    <%= render "layouts/footer" %>
+
+    <%= yield :vendor_js %>
+    <%= yield :page_vendor_js %>
+    <%= yield :theme_js %>
+    <%= yield :page_js %>
+
+    <script>
+      $(window).on('load', function() {
+        if (feather) {
+          feather.replace({
+            width: 14,
+            height: 14
+          });
+        }
+      })
+    </script>
+  </body>
+</html>

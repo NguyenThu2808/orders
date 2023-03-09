@@ -1,0 +1,46 @@
+<% content_for :vendor_css do %>
+  <%= stylesheet_link_tag 'home/vendor', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :theme_css do %>
+  <%= stylesheet_link_tag 'home/theme', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :page_css do %>
+  <%= stylesheet_link_tag 'home/page', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :custom_css do %>
+  <%= stylesheet_link_tag 'home/custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper container-xxl p-0">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <div class="row match-height">
+        <div class="col-md-6 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Hoa don</h4>
+            </div>
+            <div class="card-body">
+              <h2>Hoa don</h2>
+
+              <b>Nguoi order:</b> <%= @order.name %><br/>
+              <b>Danh sach mon:</b><br/>
+              <% @order.order_dishes.each do |order_dish| %>
+                <%= order_dish&.dish&.name %> - <%= order_dish&.quantity %><br/>
+              <% end %>
+              <b>Price:</b><%#= @order.price %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

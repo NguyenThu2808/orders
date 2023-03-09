@@ -1,0 +1,91 @@
+<% content_for :vendor_css do %>
+  <%= stylesheet_link_tag 'home/vendor', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :theme_css do %>
+  <%= stylesheet_link_tag 'home/theme', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :page_css do %>
+  <%= stylesheet_link_tag 'home/page', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<% content_for :custom_css do %>
+  <%= stylesheet_link_tag 'home/custom', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<!-- BEGIN: Content-->
+<div class="app-content content ">
+  <div class="content-overlay"></div>
+  <div class="header-navbar-shadow"></div>
+  <div class="content-wrapper container-xxl p-0">
+    <div class="content-header row">
+    </div>
+    <div class="content-body">
+      <div class="row match-height">
+        <div class="col-md-6 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title"><%= title_order %></h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12">
+                  <p class="card-text">
+                  </p>
+
+                  <%= form_for order do |f| %>
+                    <div class="form-group">
+                      <%= f.label :name, "Tên khách hàng" %>
+                      <%= f.text_field :name, class: "form-control", placeholder: "Ten mon an" %>
+                    </div>
+
+                    <div class="form-group row order_dishes">
+                      <div class="col-md-12 order_dish">
+                        <%= f.fields_for :order_dishes, autocomplete: "off" do |ff| %>
+                          <%= render partial: "order_dish_fields", locals: {f: ff} %>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-3 col-12">
+                        <%= link_to_add_association f, :order_dishes,
+                          class: "btn btn-icon btn-primary",
+                          data: {association_insertion_node: '.order_dish',
+                          association_insertion_method: :append} do %>
+                            <!-- <i data-feather="plus" class="mr-25"></i> -->
+                            <span>Thêm món</span>
+                        <% end %>
+                      </div>
+                    </div>
+
+                    <div class="form-group mt-50 float-right">
+                      <%= f.submit "Lưu lại", class: "btn btn-outline-primary waves-effect waves-float waves-light" %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# content_for :vendor_js do %>
+  <%#= javascript_include_tag 'home/vendor' %>
+<%# end %>
+
+<%# content_for :page_vendor_js do %>
+  <%#= javascript_include_tag 'home/page_vendor' %>
+<%# end %>
+
+<% content_for :theme_js do %>
+  <%= javascript_include_tag 'home/theme' %>
+<% end %>
+
+<%# content_for :page_js do %>
+  <%#= javascript_include_tag 'home/page' %>
+<%# end %>
