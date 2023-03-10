@@ -32,28 +32,53 @@
     <div class="content-header row">
     </div>
     <div class="content-body">
-      <table>
-        <tr>
-          <th>ID</th>
-          <th>Nguoi order</th>
-          <th>Danh sach mon</th>
-          <th>Price</th>
-          <th>Hanh dong</th>
-        </tr>
-        <% @orders.each do |order| %>
-          <tr>
-            <td><%= order.id %></td>
-            <td><%= order.name %></td>
-            <td><%= order.dishes.pluck(:name).join(", ") %></td>
-            <td><%= order.total_price %></td>
-            <td>
-              <%= link_to "Chi tiết", order_path(order) %> <br/>
-              <%= link_to "Chỉnh sửa", edit_order_path(order) %> <br/>
-              <%= link_to "Xóa", order_path(order), method: :delete, data: {confirm: "Are you sure?"} %>
-            </td>
-          </tr>
-        <% end %>
-      </table>
+      <div class="row match-height">
+        <div class="col-md-12 col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">Danh sach order</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4 form-group">
+                  <form action="<%= orders_path %>" class="form_search_date">
+                    <input type="text" id="fp-default"
+                      class="form-control flatpickr-basic search_date"
+                      placeholder="YYYY-MM-DD"
+                      value="<%= params[:date] || Date.today %>"
+                      name="date" />
+                  </form>
+                </div>
+
+                <div class="col-12">
+                  <table>
+                    <tr>
+                      <th>No</th>
+                      <th>Nguoi order</th>
+                      <th>Danh sach mon</th>
+                      <th>Price</th>
+                      <th>Hanh dong</th>
+                    </tr>
+                    <% @orders.each_with_index do |order, index| %>
+                      <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= order.name %></td>
+                        <td><%= order.dishes.pluck(:name).join(", ") %></td>
+                        <td><%= order.total_price %></td>
+                        <td>
+                          <%= link_to "Chi tiết", order_path(order) %> <br/>
+                          <%= link_to "Chỉnh sửa", edit_order_path(order) %> <br/>
+                          <%= link_to "Xóa", order_path(order), method: :delete, data: {confirm: "Are you sure?"} %>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -72,4 +97,9 @@
 
 <% content_for :page_js do %>
   <%= javascript_include_tag 'home/page' %>
+  <script>
+    $('.search_date').on('change', function() {
+      $('.form_search_date').trigger("submit");
+    });
+  </script>
 <% end %>

@@ -1,10 +1,11 @@
 class DishesController < ApplicationController
   def index
-    @dishes = Dish.paginate(:page => params[:page], :per_page => 10).order('created_at desc')
+    @dishes = Dish.paginate(:page => params[:page], :per_page => 20)
   end
 
   def show
-
+    # @dish = Dish.find_by(id: params[:id])
+    redirect_to edit_dish_path(params[:id])
   end
 
   def new
@@ -17,11 +18,12 @@ class DishesController < ApplicationController
 
   def edit
     @dish = Dish.find_by id: params[:id]
-    @categories = Category.all()
+    @categories = Category.select(:id, :name)
   end
 
   def update
     @dish = Dish.find_by id: params[:id]
+    @categories = Category.select(:id, :name)
 
     if @dish.update_attributes dish_params
       redirect_to dishes_path

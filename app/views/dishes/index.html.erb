@@ -33,7 +33,7 @@
               <table class="table">
                 <thead>
                   <tr>
-                    <th>ID</th>
+                    <th>No</th>
                     <th>Phân loại</th>
                     <th>Món ăn</th>
                     <th>Giá</th>
@@ -44,7 +44,17 @@
                   <% @dishes.each_with_index do |dish, index| %>
                     <tr>
                       <td><%= index + 1 %></td>
-                      <td><%= dish.category.name %></td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="avatar <%= dish.category.slug %> mr-1">
+                            <div class="avatar-content">
+                            </div>
+                          </div>
+                          <span><%= dish.category.name %></span>
+                        </div>
+
+                        <!-- bg-light-info  bg-light-danger bg-light-success-->
+                      </td>
                       <td><%= dish.name %></td>
                       <td><%= dish.price %></td>
                       <td>

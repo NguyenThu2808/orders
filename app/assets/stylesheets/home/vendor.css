@@ -2,4 +2,6 @@
  *= require vendors/css/vendors.min
  *= require vendors/css/charts/apexcharts
  *= require vendors/css/extensions/toastr.min
+ *= require vendors/css/pickers/pickadate/pickadate.css
+ *= require vendors/css/pickers/flatpickr/flatpickr.min.css
  */

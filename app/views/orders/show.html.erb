@@ -29,14 +29,12 @@
               <h4 class="card-title">Hoa don</h4>
             </div>
             <div class="card-body">
-              <h2>Hoa don</h2>
-
               <b>Nguoi order:</b> <%= @order.name %><br/>
               <b>Danh sach mon:</b><br/>
               <% @order.order_dishes.each do |order_dish| %>
                 <%= order_dish&.dish&.name %> - <%= order_dish&.quantity %><br/>
               <% end %>
-              <b>Price:</b><%#= @order.price %>
+              <b>Price: </b><%= @order.total_price %>
             </div>
           </div>
         </div>

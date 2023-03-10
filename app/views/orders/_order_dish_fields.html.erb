@@ -5,19 +5,23 @@
         <%= f.label :dish_id, "Chọn món" %>
         <%= f.collection_select :dish_id, @dishes, :id,
           proc {|dish| dish.name}, {},
-          {class: "form-control select2"} %>
+          {class: "form-control select2 name_dish"} %>
       </div>
     </div>
     <div class="col-md-2 col-12">
       <div class="form-group">
         <%= f.label :quantity, "Số lượng" %>
-        <%= f.text_field :quantity, class: "form-control" %>
+        <%= f.number_field :quantity, class: "form-control quantity_dish",
+          min: "0" %>
       </div>
     </div>
-    <div class="col-md-1 col-12">
+    <div class="col-md-3 col-12">
       <div class="form-group">
-        <label for="staticprice">Price</label>
-        <input type="text" readonly class="form-control-plaintext" id="staticprice" value="$32" />
+        <%= f.label :quantity, "Price" %>
+        <%= f.text_field :price, class: "form-control price_order_dish",
+          value: f.object.price.present? ? f.object.price : '0' %>
+          <!-- number_to_currency -->
+        <!-- <input type="text" readonly class="form-control-plaintext" id="price_order" value="0" /> -->
       </div>
     </div>
     <div class="col-md-2 col-12">
