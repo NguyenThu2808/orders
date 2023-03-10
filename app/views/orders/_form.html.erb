@@ -37,7 +37,8 @@
                   <%= form_for order do |f| %>
                     <div class="form-group">
                       <%= f.label :name, "Tên khách hàng" %>
-                      <%= f.text_field :name, class: "form-control", placeholder: "Ten mon an" %>
+                      <%= f.text_field :name, class: "form-control", placeholder: "Ten khach hang",
+                        value: "KH #{Order.where("Date(created_at) = ?", Date.today).count + 1} (ngay #{Date.today})" %>
                     </div>
 
                     <div class="form-group row order_dishes">
@@ -59,6 +60,7 @@
                         <% end %>
                       </div>
                     </div>
+                    <!-- them event cocoon -->
 
                     <div class="form-group mt-50 float-right">
                       <%= f.submit "Lưu lại", class: "btn btn-outline-primary waves-effect waves-float waves-light" %>
@@ -86,6 +88,57 @@
   <%= javascript_include_tag 'home/theme' %>
 <% end %>
 
-<%# content_for :page_js do %>
+<% content_for :page_js do %>
   <%#= javascript_include_tag 'home/page' %>
-<%# end %>
+  <script type="text/javascript">
+    function cacl_by_quantity() {
+      $('.quantity_dish').on('change', function(event) {
+        event.preventDefault();
+        let quantity = $(this).val();
+        let selector_this = $(this);
+        let name_dish_id = $(this).closest('.nested-fields').find('.name_dish').val();
+
+        $.ajax({
+          url: "<%= cacl_price_dish_orders_path %>",
+          type: 'GET',
+          dataType: 'json',
+          data: {quantity, name_dish_id},
+          headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+          success: function(data) {
+            selector_this.closest('.nested-fields').find('.price_order_dish').val(data.price_order_dish);
+          }
+        })
+      });
+    }
+
+    function cacl_by_name_dish() {
+      $('.name_dish').on('change', function(event) {
+        event.preventDefault();
+        let name_dish_id = $(this).val();
+        let selector_this = $(this);
+        let quantity = $(this).closest('.nested-fields').find('.quantity_dish').val();
+
+        $.ajax({
+          url: "<%= cacl_price_dish_orders_path %>",
+          type: 'GET',
+          dataType: 'json',
+          data: {quantity, name_dish_id},
+          headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
+          success: function(data) {
+            selector_this.closest('.nested-fields').find('.price_order_dish').val(data.price_order_dish);
+          }
+        })
+      });
+    }
+
+    cacl_by_quantity();
+    cacl_by_name_dish();
+
+    $(document).on('turbolinks:load', function() {
+      $(document).bind('cocoon:after-insert', '.order_dishes', function() {
+        cacl_by_quantity();
+        cacl_by_name_dish();
+      });
+    });
+  </script>
+<% end %>

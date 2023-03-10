@@ -1,6 +1,10 @@
 class OrdersController < ApplicationController
   def index
-    @orders = Order.all()
+    if params[:date].present?
+      @orders = Order.where("Date(created_at) = ?", params[:date])
+    else
+      @orders = Order.where("Date(created_at) = ?", Date.today)
+    end
   end
 
   def show
@@ -49,11 +53,18 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def cacl_price_dish
+    dish = Dish.find_by id: params[:name_dish_id]
+    price_order_dish = dish.price.present? ? (dish.price.to_f)*params[:quantity].to_i : 0
+
+    render json: { status: true, price_order_dish: price_order_dish}
+  end
+
   private
   def order_params
     strong_params = [
       :name, :user_id, :total_price,
-      order_dishes_attributes: [:id, :dish_id, :order_id, :quantity, :_destroy]
+      order_dishes_attributes: [:id, :dish_id, :order_id, :quantity, :price, :_destroy]
     ]
 
     params.require(:order).permit(strong_params)
