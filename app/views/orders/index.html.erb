@@ -64,7 +64,7 @@
                         <td><%= index + 1 %></td>
                         <td><%= order.name %></td>
                         <td><%= order.dishes.pluck(:name).join(", ") %></td>
-                        <td><%= order.total_price %></td>
+                        <td><%= number_to_currency(order.total_price, unit: "") %></td>
                         <td>
                           <%= link_to "Chi tiết", order_path(order) %> <br/>
                           <%= link_to "Chỉnh sửa", edit_order_path(order) %> <br/>

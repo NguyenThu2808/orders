@@ -55,7 +55,7 @@ class OrdersController < ApplicationController
 
   def cacl_price_dish
     dish = Dish.find_by id: params[:name_dish_id]
-    price_order_dish = dish.price.present? ? (dish.price.to_f)*params[:quantity].to_i : 0
+    price_order_dish = dish.price.present? ? (dish.price)*params[:quantity].to_i : 0
 
     render json: { status: true, price_order_dish: price_order_dish}
   end

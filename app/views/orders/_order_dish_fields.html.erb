@@ -12,15 +12,14 @@
       <div class="form-group">
         <%= f.label :quantity, "Số lượng" %>
         <%= f.number_field :quantity, class: "form-control quantity_dish",
-          min: "0" %>
+          min: "0", value: "0" %>
       </div>
     </div>
     <div class="col-md-3 col-12">
       <div class="form-group">
         <%= f.label :quantity, "Price" %>
         <%= f.text_field :price, class: "form-control price_order_dish",
-          value: f.object.price.present? ? f.object.price : '0' %>
-          <!-- number_to_currency -->
+          value: f.object.price.present? ? number_to_currency(f.object.price, unit: "") : '0' %>
         <!-- <input type="text" readonly class="form-control-plaintext" id="price_order" value="0" /> -->
       </div>
     </div>
